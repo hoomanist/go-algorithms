@@ -3,9 +3,7 @@ package main
 import (
   "fmt"
   "os"
-
 )
-
 
 func Search(Target int, data []int) (int, error) {
   StartIndex := 0
