@@ -2,6 +2,7 @@
 some famous algorithms and data structures implemented in go
 
 
-## list
+## data structures 
 
 - Binary Search
+- linked list (queue)
