@@ -4,6 +4,8 @@ import "fmt"
 
 type queue struct {
 	head *node
+    tail *node
+    length int
 }
 
 type node struct {
@@ -11,22 +13,42 @@ type node struct {
 	next *node
 }
 
-func (list *queue) First() *node {
-	return list.head
+func (list *queue) Traverse() {
+    n := list.head
+    for  i := 0; i < list.length + 1; i++ {
+        if n == nil {
+            fmt.Println("")
+            return
+        }
+        fmt.Printf("%d: %d - ", i, n.cargo)
+        n = n.next
+    }
 }
+
 
 func (list *queue) push(cargo int) {
-	newNode := node{cargo: cargo, next:nil}
-	if list.head != nil {
-		list.head.next = &newNode
-		list.head = &newNode
-	}else {
-		list.head = &newNode
-	}
+    n := &node{cargo: cargo}
+    list.length++
+    if list.tail == list.head && list.tail == nil{
+        list.tail = n
+        list.head = list.tail
+        n.next = nil 
+    } else {
+        tail := list.tail
+        list.tail = n
+        tail.next = list.tail
+    }
 }
 
-func (current_node *node) Next() *node {
-	return current_node.next
+func (list *queue) pop() *node {
+    if list.head == nil {
+        return nil
+    }
+    list.length--
+    h := list.head
+    list.head = h.next
+    return h
+
 }
 
 func main(){
@@ -34,5 +56,7 @@ func main(){
 	for i := 0; i <= 9; i++ {
 		list.push(i)
 	}
-	fmt.Println(list.head.cargo)
+    list.Traverse()
+    fmt.Println(list.pop().cargo)
+    list.Traverse()
 }
